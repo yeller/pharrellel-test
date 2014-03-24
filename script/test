@@ -1,0 +1,4 @@
+#!/bin/bash
+
+set -e
+grench eval "(do (require '[riker.sitting-down :reload true]) (riker.sitting-down/-main))"
