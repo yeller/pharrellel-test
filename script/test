@@ -1,4 +1,4 @@
 #!/bin/bash
 
 set -e
-grench eval "(do (require '[pharrellel-test :reload true]) (pharrellel-test/-main))"
+grench eval "(do (require 'pharrellel-test.core-test) (require '[pharrellel-test :reload true]) (pharrellel-test/-main))"
