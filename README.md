@@ -1,6 +1,6 @@
 # pharrellel-test
 
-[pharrel](http://cl.ly/image/0W3K0Z2n3n2d/Image%202014-03-25%20at%201.00.52%20PM.png)
+![pharrel](http://cl.ly/image/0W3K0Z2n3n2d/Image%202014-03-25%20at%201.00.52%20PM.png)
 
 A parallel test runner for clojure.test
 
