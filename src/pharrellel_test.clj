@@ -87,7 +87,8 @@
 (defn run-worker [results tests-to-run worker-id finished]
   (future
     (try
-      (binding [*result-queue* results]
+      (binding [*result-queue* results
+                t/*report-counters* (ref {})]
         (loop []
           (if-let [[tvar each-fixture once-fixture] (.poll tests-to-run)]
             (do
@@ -97,7 +98,7 @@
                     #(test-var results tvar))))
               (recur))
             (do
-              (deliver (nth finished worker-id) 1)))))
+              (deliver (nth finished worker-id) t/*report-counters*)))))
       (catch Throwable e
         (.printStackTrace e))
       (finally (deliver (nth finished worker-id) 1)))))
@@ -110,7 +111,8 @@
     (doseq [n finished]
       (deref n))
     (doseq [r (iterator-seq (.iterator results))]
-      (println r))))
+      (println r))
+    (apply merge-with + (map (comp deref deref) finished))))
 
 (defn gather-tests [ns-re]
   (let [queue (LinkedBlockingQueue.)]
