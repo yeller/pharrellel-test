@@ -95,10 +95,8 @@
                 (fn []
                   (each-fixture
                     #(test-var results tvar))))
-              (println "finished running " tvar)
               (recur))
             (do
-              (println "finished on " worker-id)
               (deliver (nth finished worker-id) 1)))))
       (catch Throwable e
         (.printStackTrace e))
