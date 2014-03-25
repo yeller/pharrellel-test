@@ -66,8 +66,6 @@
 (defmethod t/report :begin-test-var [m])
 (defmethod t/report :end-test-var [m])
 
-(def ^{:dynamic true} *parallelism* 4)
-
 (defn gather-tests-from-ns [^AbstractQueue queue n]
   (let [once-fixture-fn (t/join-fixtures (::once-fixtures (meta n)))
         each-fixture-fn (t/join-fixtures (::each-fixtures (meta n)))]
@@ -103,10 +101,10 @@
         (.printStackTrace e))
       (finally (deliver (nth finished worker-id) 1)))))
 
-(defn run-gathered-tests [^AbstractQueue tests-to-run]
+(defn run-gathered-tests [^AbstractQueue tests-to-run pharrallelism]
   (let [results (LinkedBlockingQueue.)
-        finished (into [] (map (fn [_] (promise)) (range *parallelism*)))]
-    (dotimes [worker-id *parallelism*]
+        finished (into [] (map (fn [_] (promise)) (range pharrallelism)))]
+    (dotimes [worker-id pharrallelism]
       (run-worker results tests-to-run worker-id finished))
     (doseq [n finished]
       (deref n))
@@ -120,9 +118,11 @@
       (gather-tests-from-ns queue n))
     queue))
 
-(defn run-tests [ns-re]
-  (-> (gather-tests ns-re)
-    run-gathered-tests))
+(defn run-tests
+  ([ns-re] (run-tests ns-re (.. Runtime getRuntime availableProcessors)))
+  ([ns-re pharrallelism]
+   (-> (gather-tests ns-re)
+     (run-gathered-tests pharrallelism))))
 
 (defn -main [& args]
   (run-tests #"pharrellel-test.*"))

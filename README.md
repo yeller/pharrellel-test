@@ -27,6 +27,8 @@ There's one function you care about:
 
 It takes a regex for matching which namespaces you want to run tests in. It returns the same test summary you'd get from `clojure.test/run-tests`.
 
+Optionally, it takes a second argument, which is the number of worker threads to use. This defaults to the number of CPUs, as returned by JVM CALL HERE
+
 # How do it do it?
 
 Most of pharrallel is modified from clojure.test. There's two phases: gather, which scans namespaces for tests and puts them on a queue, and running, which spawns a future for each thread, and polls from the gather queue, running tests, and dropping results on an output queue. Once the workers are done (which is indicated by the queue being empty, and signaled to the runner via a promise per worker), a doseq prints results
