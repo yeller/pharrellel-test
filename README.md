@@ -1,23 +1,22 @@
 # pharrellel-test
 
+[pharrel](http://cl.ly/image/0W3K0Z2n3n2d/Image%202014-03-25%20at%201.00.52%20PM.png)
+
 A parallel test runner for clojure.test
 
-## Usage
-
-Image of pharell
-
-A parallel test runner for clojure.test tests
+## Installation
 
 Install via clojars: https://clojars.org/pharrellel-test
 
-
-# Warnings
+## Warnings
 
 Whilst pharrallel will run fixtures, it does *not* isolate them from each other, or indeed do anything sane at all. I don't use fixtures, and consider the global mutable state they imply a smell. If you use fixtures, generally:
 
 _do not use this library_
 
 I'll accept a PR for this, and gladly point somebody else in the right direction (you want to group tests by whether they are in namespaces with fixtures or not, run the ones with fixtures in a single thread, and have the other workers run the tests that don't require serialization.
+
+# Usage:
 
 Not using fixtures? Great! Here's how to use pharallel:
 
