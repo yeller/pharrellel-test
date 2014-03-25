@@ -1,4 +1,4 @@
-(ns riker.core-test
+(ns pharrellel-test.core-test
   (:require [clojure.test :refer :all]))
 
 (deftest a-test

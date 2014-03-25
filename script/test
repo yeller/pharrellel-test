@@ -1,4 +1,4 @@
 #!/bin/bash
 
 set -e
-grench eval "(do (require '[riker.sitting-down :reload true]) (riker.sitting-down/-main))"
+grench eval "(do (require '[pharrellel-test :reload true]) (pharrellel-test/-main))"

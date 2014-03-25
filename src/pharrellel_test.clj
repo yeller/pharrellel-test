@@ -1,4 +1,4 @@
-(ns riker.sitting-down
+(ns pharrellel-test
   (:require [clojure.test :as t]
             [clojure.stacktrace :as stack])
   (:import java.util.concurrent.LinkedBlockingQueue
@@ -125,4 +125,4 @@
     run-gathered-tests))
 
 (defn -main [& args]
-  (run-tests #"riker.*"))
+  (run-tests #"pharrellel-test.*"))
